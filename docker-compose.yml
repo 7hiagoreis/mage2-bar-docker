@@ -1,1 +1,52 @@
+version: "3.9"
 
+services:
+  app:
+    build:
+      context: ./docker/app
+    container_name: mage2_app
+    ports:
+      - "8080:80"
+    volumes:
+      - ./magento2:/var/www/html/magento2
+    depends_on:
+      - db
+      - search
+    networks:
+      - mage2_net
+
+  db:
+    image: mariadb:10.6
+    container_name: mage2_db
+    restart: unless-stopped
+    volumes:
+      - db_data:/var/lib/mysql
+    env_file:
+      - .env
+    networks:
+      - mage2_net
+
+  search:
+    image: opensearchproject/opensearch:2.11.0
+    container_name: mage2_search
+    environment:
+      discovery.type: single-node
+      OPENSEARCH_JAVA_OPTS: "-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - search_data:/usr/share/opensearch/data
+    ports:
+      - "9200:9200"
+    networks:
+      - mage2_net
+
+volumes:
+  db_data:
+  search_data:
+
+networks:
+  mage2_net:
+    driver: bridge
