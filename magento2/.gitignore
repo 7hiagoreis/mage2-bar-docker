@@ -1,1 +1,6 @@
-
+/app/etc/env.php
+/generated/
+/pub/static/
+/pub/media/catalog/product/cache/
+/var/
+/vendor/
