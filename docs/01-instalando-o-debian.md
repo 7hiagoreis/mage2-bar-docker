@@ -30,6 +30,7 @@ sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
 sudo vi /etc/fail2ban/jail.local
 ```
 
+```ini
 [DEFAULT]
 bantime = 1h
 findtime = 10m
@@ -38,6 +39,7 @@ backend = systemd
 
 [sshd]
 enabled = true
+```
 
 # Habilitando, testando e reiniciando o fail2ban
 ```bash
