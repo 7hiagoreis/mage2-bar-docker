@@ -48,6 +48,8 @@ sudo systemctl restart fail2ban
 ```
 ```bash
 sudo fail2ban-client status
+```
+```bash
 sudo fail2ban-client status sshd
 ```
 
