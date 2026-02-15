@@ -1,4 +1,4 @@
-# Preparando o Debian 12 para o Projeto - mage2-bar-docker
+# Preparando o Debian 12 para o Projeto
 ## Projeto mage2-bar-docker
 
 Este documento descreve o processo de hardening do serviço SSH no Debian 12, aplicado após a preparação inicial do sistema.
