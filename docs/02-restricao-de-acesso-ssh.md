@@ -77,17 +77,17 @@ systemctl status ssh
 
 Testes realizados:
 
-Login como devops utilizando chave pública
+- Login como devops utilizando chave pública
 
-Tentativa de login por senha (bloqueada)
+- Tentativa de login por senha (bloqueada)
 
-Tentativa de login como root (bloqueada)
+- Tentativa de login como root (bloqueada)
 
 
 # Considerações de segurança
 
-O acesso SSH agora é permitido apenas via chave pública
+- O acesso SSH agora é permitido apenas via chave pública
 
-O usuário root não possui acesso direto via SSH
+- O usuário root não possui acesso direto via SSH
 
-Redução significativa da superfície de ataque do servidor
+- Redução significativa da superfície de ataque do servidor
