@@ -13,9 +13,12 @@ adduser devops
 usermod -aG sudo devops
 
 # Instalando e configurando o fail2ban
+```bash
 sudo apt install -y fail2ban
+```
+```bash
 sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
-
+```
 
 # Adicionado a configuração minima do fail2ban no arquivo jail.local
 sudo vi /etc/fail2ban/jail.local
