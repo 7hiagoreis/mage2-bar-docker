@@ -43,9 +43,12 @@ enabled = true
 ```bash
 sudo systemctl enable fail2ban
 ```
+```bash
 sudo systemctl restart fail2ban
-
+```
+```bash
 sudo fail2ban-client status
 sudo fail2ban-client status sshd
+```
 
 
