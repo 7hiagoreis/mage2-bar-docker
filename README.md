@@ -10,7 +10,7 @@ Exemplo de práticas modernas de containers, IaC e Gitflow.
 
 ### Tecnologias utilizadas no projeto
 - Docker & Docker Compose
-- Ubuntu 22.04
+- Debian 12
 - PHP + Apache
 - Magento 2 Community Edition
 - MariaDB/MySQL
