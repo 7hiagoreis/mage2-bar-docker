@@ -68,7 +68,7 @@ Aplicando as alterações realizadas:
 sudo systemctl restart ssh
 ```
 
-Validação do serviço SSH
+# Validação do serviço SSH
 
 Verificação do status do serviço:
 ```bash
