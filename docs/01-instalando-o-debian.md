@@ -5,7 +5,7 @@ Este documento descreve o processo de instalação do GNU/Linux Debian 12 aplica
 
 ---
 
-# Após a instalação do Debian 12 em máquina virtual, foi realizado as seguintes etapas para preparar o servidor...
+Após a instalação do Debian 12 em máquina virtual, foi realizado as seguintes etapas para preparar o servidor...
 
 # Atualizar o sistema
 ```bash
