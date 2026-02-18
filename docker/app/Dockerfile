@@ -2,7 +2,6 @@ FROM php:8.2-fpm
 
 ENV TZ=America/Sao_Paulo
 
-# Dependências do sistema
 RUN apt-get update && apt-get install -y \
     libicu-dev \
     libzip-dev \
@@ -13,6 +12,7 @@ RUN apt-get update && apt-get install -y \
     libfreetype6-dev \
     libonig-dev \
     libsodium-dev \
+    libgmp-dev \
     unzip \
     git \
     curl \
@@ -20,7 +20,9 @@ RUN apt-get update && apt-get install -y \
     cron \
     && rm -rf /var/lib/apt/lists/*
 
-# Extensões obrigatórias Magento 2.4+
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime \
+ && echo $TZ > /etc/timezone
+
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
  && docker-php-ext-install \
     bcmath \
@@ -35,15 +37,21 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
     sodium \
     exif \
     pcntl \
-    calendar
+    calendar \
+    gmp
 
-# Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Ajuste php.ini produção
-RUN echo "memory_limit=2G" > /usr/local/etc/php/conf.d/memory.ini \
- && echo "upload_max_filesize=64M" >> /usr/local/etc/php/conf.d/memory.ini \
- && echo "post_max_size=64M" >> /usr/local/etc/php/conf.d/memory.ini
+RUN echo "memory_limit=2G" > /usr/local/etc/php/conf.d/magento.ini \
+ && echo "max_execution_time=1800" >> /usr/local/etc/php/conf.d/magento.ini \
+ && echo "upload_max_filesize=64M" >> /usr/local/etc/php/conf.d/magento.ini \
+ && echo "post_max_size=64M" >> /usr/local/etc/php/conf.d/magento.ini
+
+RUN echo "opcache.enable=1" >> /usr/local/etc/php/conf.d/opcache.ini \
+ && echo "opcache.memory_consumption=512" >> /usr/local/etc/php/conf.d/opcache.ini \
+ && echo "opcache.interned_strings_buffer=16" >> /usr/local/etc/php/conf.d/opcache.ini \
+ && echo "opcache.max_accelerated_files=100000" >> /usr/local/etc/php/conf.d/opcache.ini \
+ && echo "opcache.validate_timestamps=0" >> /usr/local/etc/php/conf.d/opcache.ini
 
 WORKDIR /var/www/html
 
