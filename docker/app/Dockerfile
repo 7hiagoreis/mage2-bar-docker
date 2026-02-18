@@ -1,9 +1,8 @@
-FROM php:8.2-apache
+FROM php:8.2-fpm
 
-# Timezone (Importante para logs, cron, Magento etc)
 ENV TZ=America/Sao_Paulo
 
-# Dependências do Sistema
+# Dependências do sistema
 RUN apt-get update && apt-get install -y \
     libicu-dev \
     libzip-dev \
@@ -13,6 +12,7 @@ RUN apt-get update && apt-get install -y \
     libjpeg-dev \
     libfreetype6-dev \
     libonig-dev \
+    libsodium-dev \
     unzip \
     git \
     curl \
@@ -20,7 +20,7 @@ RUN apt-get update && apt-get install -y \
     cron \
     && rm -rf /var/lib/apt/lists/*
 
-# Extensões PHP exigidas pelo Magento 2
+# Extensões obrigatórias Magento 2.4+
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
  && docker-php-ext-install \
     bcmath \
@@ -30,26 +30,21 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
     sockets \
     zip \
     gd \
-    xsl
+    xsl \
+    opcache \
+    sodium \
+    exif \
+    pcntl \
+    calendar
 
-# Apache: mod_rewrite (Obrigatório para Magento 2)
-RUN a2enmod rewrite
-
-# Apache: DocumentRoot Obrigatório (/pub)
-RUN sed -ri \
-  -e 's!/var/www/html!/var/www/html/magento2/pub!g' \
-  /etc/apache2/sites-available/*.conf \
-  /etc/apache2/apache2.conf
-
-# Composer (Obrigatório para instalar o Magento)
+# Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Permissões (Apache)
-RUN chown -R www-data:www-data /var/www/html \
- && chmod -R 755 /var/www/html
+# Ajuste php.ini produção
+RUN echo "memory_limit=2G" > /usr/local/etc/php/conf.d/memory.ini \
+ && echo "upload_max_filesize=64M" >> /usr/local/etc/php/conf.d/memory.ini \
+ && echo "post_max_size=64M" >> /usr/local/etc/php/conf.d/memory.ini
 
-# Diretório Principal de Trabalho do Magento 2
-WORKDIR /var/www/html/magento2
+WORKDIR /var/www/html
 
-# Expor porta 80 (Documentação)
-EXPOSE 80
+CMD ["php-fpm"]
