@@ -9,12 +9,12 @@ Rodar o **Magento 2** em containers Docker, simulando um sistema de bar com cat√
 
 ### Tecnologias utilizadas no projeto
 - Docker & Docker Compose
-- Debian 12
+- Debian 13
 - Nginx + PHP-FPM 8.2
 - Magento 2 Community Edition
 - MariaDB/MySQL
 - Opensearch
-- Redis (futuramente)
+- Redis
 - IaC (Terraform/Ansible)
 - Gitflow (boas pr√°ticas de versionamento)
 
