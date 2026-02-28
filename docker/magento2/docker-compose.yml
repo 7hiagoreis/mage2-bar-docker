@@ -1,0 +1,78 @@
+services:
+
+  magento_db:
+    image: mariadb:10.6
+    container_name: magento_db
+    restart: always
+    env_file:
+      - .env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - ./data/db:/var/lib/mysql
+    networks:
+      - magento_net
+
+  magento_redis:
+    image: redis:7
+    container_name: magento_redis
+    restart: always
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD}
+    volumes:
+      - ./data/redis:/data
+    networks:
+      - magento_net
+
+  magento_opensearch:
+    image: opensearchproject/opensearch:2.11.1
+    container_name: magento_opensearch
+    restart: always
+    environment:
+      - discovery.type=single-node
+      - plugins.security.disabled=true
+      - bootstrap.memory_lock=true
+      - OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m
+    volumes:
+      - ./data/opensearch:/usr/share/opensearch/data
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    networks:
+      - magento_net
+
+  magento_server:
+    build: .
+    container_name: magento_server
+    restart: always
+    volumes:
+      - ./html:/var/www/html
+    depends_on:
+      - magento_db
+      - magento_redis
+      - magento_opensearch
+    networks:
+      - magento_net
+
+  magento_nginx:
+    image: nginx:alpine
+    container_name: magento_nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./html:/var/www/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx/ssl:/etc/nginx/ssl
+    depends_on:
+      - magento_server
+    networks:
+      - magento_net
+
+networks:
+  magento_net:
+    driver: bridge
