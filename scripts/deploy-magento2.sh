@@ -11,15 +11,15 @@ echo "======================================"
 # -------------------------------
 # Espera o OpenSearch
 # -------------------------------
-echo "Aguardando OpenSearch..."
+echo "Aguardando o OpenSearch..."
 until curl -s http://magento_opensearch:9200/_cluster/health | grep -q '"status":"'; do
     sleep 3
 done
 
 # -------------------------------
-# Rodar Magento como www-data
+# Rodar o Magento como www-data
 # -------------------------------
-echo "Executando comandos Magento..."
+echo "Executando os comandos do Magento..."
 
 su -s /bin/bash $MAGE_USER -c "php $MAGE_ROOT/bin/magento cache:clean"
 su -s /bin/bash $MAGE_USER -c "php $MAGE_ROOT/bin/magento cache:flush"
@@ -29,9 +29,9 @@ su -s /bin/bash $MAGE_USER -c "php $MAGE_ROOT/bin/magento setup:di:compile"
 su -s /bin/bash $MAGE_USER -c "php $MAGE_ROOT/bin/magento setup:static-content:deploy -f"
 
 # -------------------------------
-# Ajustar somente pastas críticas
+# Ajustar somente as pastas críticas
 # -------------------------------
-echo "Ajustando permissões Magento..."
+echo "Ajustando as permissões do Magento..."
 
 chown -R $MAGE_USER:www-data \
     $MAGE_ROOT/var \
