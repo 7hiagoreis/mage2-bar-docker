@@ -1,77 +1,51 @@
 #!/bin/bash
-
 set -e
 
-echo "======================================="
-echo " Deploy de Produção do Magento (Docker)"
-echo "======================================="
+MAGE_ROOT="/var/www/html"
+MAGE_USER="www-data"
 
-cd /var/www/html
+echo "======================================"
+echo "Magento 2 Deploy (Docker)"
+echo "======================================"
 
-# ==============================
-# 1. Propriedade Inicial
-# ==============================
-echo "-> Ajustando as propriedades (Ownership) inicial..."
-chown -R www-data:www-data /var/www/html
+# -------------------------------
+# Espera o OpenSearch
+# -------------------------------
+echo "Aguardando OpenSearch..."
+until curl -s http://magento_opensearch:9200/_cluster/health | grep -q '"status":"'; do
+    sleep 3
+done
 
-# ==============================
-# 2. Modo Produção
-# ==============================
-echo "-> Ativando modo produção do Magento..."
-su -s /bin/bash www-data -c "php bin/magento deploy:mode:set production" || true
+# -------------------------------
+# Rodar Magento como www-data
+# -------------------------------
+echo "Executando comandos Magento..."
 
-# ==============================
-# 3. Atualização (Upgrade)
-# ==============================
-echo "-> setup:upgrade..."
-su -s /bin/bash www-data -c "php bin/magento setup:upgrade"
+su -s /bin/bash $MAGE_USER -c "php $MAGE_ROOT/bin/magento cache:clean"
+su -s /bin/bash $MAGE_USER -c "php $MAGE_ROOT/bin/magento cache:flush"
+su -s /bin/bash $MAGE_USER -c "php $MAGE_ROOT/bin/magento indexer:reindex"
+su -s /bin/bash $MAGE_USER -c "php $MAGE_ROOT/bin/magento setup:upgrade"
+su -s /bin/bash $MAGE_USER -c "php $MAGE_ROOT/bin/magento setup:di:compile"
+su -s /bin/bash $MAGE_USER -c "php $MAGE_ROOT/bin/magento setup:static-content:deploy -f"
 
-# ==============================
-# 4. Compilar
-# ==============================
-echo "-> setup:di:compile..."
-su -s /bin/bash www-data -c "php bin/magento setup:di:compile"
+# -------------------------------
+# Ajustar somente pastas críticas
+# -------------------------------
+echo "Ajustando permissões Magento..."
 
-# ==============================
-# 5. Static deploy
-# ==============================
-echo "-> static-content:deploy..."
-su -s /bin/bash www-data -c "php bin/magento setup:static-content:deploy -f"
+chown -R $MAGE_USER:www-data \
+    $MAGE_ROOT/var \
+    $MAGE_ROOT/generated \
+    $MAGE_ROOT/pub/static \
+    $MAGE_ROOT/pub/media
 
-# ==============================
-# 6. Reindexar os dados
-# ==============================
-echo "-> Reindex..."
-su -s /bin/bash www-data -c "php bin/magento indexer:reindex"
+chmod -R 775 \
+    $MAGE_ROOT/var \
+    $MAGE_ROOT/generated \
+    $MAGE_ROOT/pub/static \
+    $MAGE_ROOT/pub/media
 
-# ==============================
-# 7. Cache
-# ==============================
-echo "-> Cache clean/flush..."
-su -s /bin/bash www-data -c "php bin/magento cache:clean"
-su -s /bin/bash www-data -c "php bin/magento cache:flush"
+# Garantir bin executável
+chmod +x $MAGE_ROOT/bin/magento
 
-# ==============================
-# 8. Permissões finais
-# ==============================
-echo "-> Ajustando permissões finais..."
-
-find /var/www/html -type d -exec chmod 755 {} \;
-find /var/www/html -type f -exec chmod 644 {} \;
-
-chmod -R 775 var generated pub/static pub/media
-chmod 640 app/etc/env.php
-
-# ==============================
-# 9. Hardening contra lixo sess_
-# ==============================
-echo "-> Limpando arquivos maliciosos..."
-
-if [ -d "pub/media/customer_address" ]; then
-    find pub/media/customer_address -type f -name "sess_*" -delete
-    chmod -R 755 pub/media/customer_address
-fi
-
-echo "======================================="
-echo " Deploy Finalizado com Sucesso"
-echo "======================================="
+echo "Deploy finalizado com sucesso!"
