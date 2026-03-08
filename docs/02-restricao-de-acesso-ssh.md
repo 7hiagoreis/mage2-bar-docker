@@ -1,7 +1,7 @@
 # Restrição de Acesso (Hardening) SSH
 ## Projeto mage2-bar-docker
 
-Este documento descreve o processo de hardening do serviço SSH no Debian 12, aplicado após a preparação inicial do sistema.
+Este documento descreve o processo de hardening do serviço SSH no Debian 13, aplicado após a preparação inicial do sistema.
 
 O objetivo é aumentar a segurança do servidor, eliminando autenticação por senha e acesso direto do usuário root.
 
