@@ -1,6 +1,6 @@
 {
     "name": "treis/bodega-theme",
-    "description": "N/A",
+    "description": "Tema do Mage2-Bar-Docker, gerenciando layouts, templates, estilos e scripts para frontend do sistema de bar.",
     "type": "magento2-module",
     "license": [
         "OSL-3.0",
