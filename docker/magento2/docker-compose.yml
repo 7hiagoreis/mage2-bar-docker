@@ -2,6 +2,11 @@
 
 services:
 
+  # ---------------------------------------------------------------------
+  # Container do Banco de Dados
+  # MariaDB é usado pelo Magento 2 para armazenar produtos, pedidos,
+  # clientes, configurações do sistema e outras informações do projeto.
+  # ---------------------------------------------------------------------
   magento_db:
     image: mariadb:10.6
     container_name: magento_db
@@ -9,35 +14,59 @@ services:
     env_file:
       - .env
     environment:
+      # Variáveis carregadas do arquivo .env para manter credenciais fora do código
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     volumes:
+      # Persistência do banco de dados no host
+      # Mesmo que o container seja removido, os dados continuam salvos
       - ./data/db:/var/lib/mysql
     networks:
       - magento_net
 
+
+  # ---------------------------------------------------------------------
+  # Container do Redis (Cache)
+  # Usado pelo Magento 2 para cache, sessões e melhoria de performance.
+  # ---------------------------------------------------------------------
   magento_redis:
     image: redis:7
     container_name: magento_redis
     restart: always
+    # Ativa persistência de dados e protege o Redis com senha
     command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD}
     volumes:
+      # Persistência dos dados do Redis
       - ./data/redis:/data
     networks:
       - magento_net
 
+
+  # ---------------------------------------------------------------------
+  # Container do OpenSearch (Sistema de Pesquisa)
+  # Usado pelo Magento 2 para buscas no catálogo de produtos.
+  # Substitui o antigo Elasticsearch em versões mais recentes...
+  # ---------------------------------------------------------------------
   magento_opensearch:
     image: opensearchproject/opensearch:2.11.1
     container_name: magento_opensearch
     restart: always
     environment:
+      # Executa em modo single node (ideal para desenvolvimento)
       - discovery.type=single-node
+
+      # Desativa segurança interna (apenas para ambiente local/dev)
       - plugins.security.disabled=true
+
+      # Permite travar memória para melhor performance
       - bootstrap.memory_lock=true
+
+      # Define memória mínima e máxima da JVM
       - OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m
     volumes:
+      # Persistência do índice de busca
       - ./data/opensearch:/usr/share/opensearch/data
     ulimits:
       memlock:
@@ -46,37 +75,69 @@ services:
     networks:
       - magento_net
 
+
+  # ---------------------------------------------------------------------
+  # Container do PHP / Magento
+  # Aqui roda o Magento 2 com PHP-FPM.
+  # O Dockerfile deste projeto instala todas as extensões necessárias
+  # para executar o Magento dentro do container.
+  # ---------------------------------------------------------------------
   magento_server:
     build: .
     container_name: magento_server
     restart: always
     volumes:
-      - ../magento2:/var/www/html  # Ajuste conforme o seu cenário.... (Monta a pasta do Magento 2 do seu computador dentro do container (Formato: <caminho_local>:<caminho_no_container>)
+      # Monta a pasta do Magento 2 do host dentro do container
+      # Formato: <caminho_local>:<caminho_no_container>
+      # Ajuste conforme a estrutura do seu projeto
+      - ../magento2:/var/www/html
     depends_on:
+      # Garante que estes containers iniciem antes do Magento
       - magento_db
       - magento_redis
       - magento_opensearch
     networks:
       - magento_net
 
+
+  # ---------------------------------------------------------------------
+  # Container do Nginx (Servidor WEB)
+  # Responsável por servir o site Magento via HTTP/HTTPS.
+  # Ele recebe requisições do navegador e encaminha para o PHP-FPM
+  # que está rodando no container magento_server.
+  # ---------------------------------------------------------------------
   magento_nginx:
     image: nginx:alpine
     container_name: magento_nginx
     restart: always
     ports:
+      # Porta HTTP
       - "80:80"
+
+      # Porta HTTPS
       - "443:443"
     volumes:
+      # Pasta pública do Magento
       - ./html:/var/www/html
+
+      # Configuração personalizada do Nginx
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+
+      # Certificados SSL
       - ./nginx/ssl:/etc/nginx/ssl
     depends_on:
       - magento_server
     networks:
       - magento_net
 
-      # ||| Fim |||
 
+# ---------------------------------------------------------------------
+# Rede interna Docker
+# Permite comunicação entre os containers do ambiente Magento
+# (PHP, Banco de Dados, Redis, OpenSearch e Nginx).
+# ---------------------------------------------------------------------
 networks:
   magento_net:
     driver: bridge
+
+# ||| Fim |||
