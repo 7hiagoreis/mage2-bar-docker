@@ -41,10 +41,10 @@ RUN apt update && apt install -y \
 # Isso garante que o PHP consiga ler, manipular e criar imagens
 # nesses formatos dentro do container Docker.
 # -----------------------------------------------------------------------
-# Configurar GD do PHP
+# Configurar o GD do PHP
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg
 
-# Instalar extensões necessárias para o Magento 2
+# Instalar as extensões necessárias para o Magento 2
 RUN docker-php-ext-install \
     bcmath \
     ftp \
@@ -69,7 +69,7 @@ RUN echo "memory_limit=2G" > /usr/local/etc/php/conf.d/zz-memory-limit.ini \
     && echo "post_max_size=64M" >> /usr/local/etc/php/conf.d/zz-memory-limit.ini \
     && echo "max_execution_time=1800" >> /usr/local/etc/php/conf.d/zz-memory-limit.ini
 
-# Configurar terminal com cores e aliases
+# Configurar o terminal do container com cores e aliases
 RUN echo "export TERM=xterm-256color" >> /root/.bashrc \
     && echo "alias ll='ls -lah --color=auto'" >> /root/.bashrc \
     && echo "alias ls='ls --color=auto'" >> /root/.bashrc \
@@ -82,7 +82,7 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
 
-# Definir bash como shell padrão
+# Definir o bash como shell padrão
 SHELL ["/bin/bash", "-c"]
 
 # ||| Fim ||| 
