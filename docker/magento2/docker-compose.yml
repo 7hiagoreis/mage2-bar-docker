@@ -29,7 +29,7 @@ services:
 
   # ---------------------------------------------------------------------
   # Container do Redis (Cache)
-  # Usado pelo Magento 2 para cache, sessões e melhoria de performance.
+  # Usado pelo Magento 2 para cache, sessões e melhorias de performance.
   # ---------------------------------------------------------------------
   magento_redis:
     image: redis:7
