@@ -1,3 +1,5 @@
+# ||| Inicio |||
+
 services:
 
   magento_db:
@@ -49,7 +51,7 @@ services:
     container_name: magento_server
     restart: always
     volumes:
-      - ./html:/var/www/html
+      - ../magento2:/var/www/html  # Ajuste conforme o seu cenário.... (Monta a pasta do Magento 2 do seu computador dentro do container (Formato: <caminho_local>:<caminho_no_container>)
     depends_on:
       - magento_db
       - magento_redis
@@ -72,6 +74,8 @@ services:
       - magento_server
     networks:
       - magento_net
+
+      # ||| Fim |||
 
 networks:
   magento_net:
