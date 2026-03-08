@@ -1,4 +1,5 @@
 # ||| Inicio ||| 
+
 FROM php:8.2-fpm
 
 ENV DEBIAN_FRONTEND=noninteractive
