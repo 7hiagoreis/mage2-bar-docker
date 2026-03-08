@@ -21,7 +21,7 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     volumes:
       # Persistência do banco de dados no host
-      # Mesmo que o container seja removido, os dados continuam salvos
+      # Mesmo que o container seja removido, os dados continuam salvos... =)
       - ./data/db:/var/lib/mysql
     networks:
       - magento_net
