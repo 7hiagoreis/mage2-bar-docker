@@ -89,7 +89,7 @@ services:
     volumes:
       # Monta a pasta do Magento 2 do host dentro do container
       # Formato: <caminho_local>:<caminho_no_container>
-      # Ajuste conforme a estrutura do seu projeto
+      # Ajuste conforme a estrutura do seu projeto...
       - ../magento2:/var/www/html
     depends_on:
       # Garante que estes containers iniciem antes do Magento
@@ -103,7 +103,7 @@ services:
   # ---------------------------------------------------------------------
   # Container do Nginx (Servidor WEB)
   # Responsável por servir o site Magento via HTTP/HTTPS.
-  # Ele recebe requisições do navegador e encaminha para o PHP-FPM
+  # Ele recebe as requisições do navegador e encaminha para o PHP-FPM
   # que está rodando no container magento_server.
   # ---------------------------------------------------------------------
   magento_nginx:
@@ -132,7 +132,7 @@ services:
 
 
 # ---------------------------------------------------------------------
-# Rede interna Docker
+# Rede interna do Docker!
 # Permite comunicação entre os containers do ambiente Magento
 # (PHP, Banco de Dados, Redis, OpenSearch e Nginx).
 # ---------------------------------------------------------------------
