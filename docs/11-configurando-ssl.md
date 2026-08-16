@@ -3,7 +3,7 @@
 
 Este documento descreve a configuração do certificado SSL utilizado pelo Nginx para estabelecer conexões HTTPS com o Magento 2.
 
-Os arquivos de certificado são utilizados pelo container `magento_nginx`.
+Os arquivos do certificado são utilizados pelo container `magento_nginx`.
 
 ---
 
