@@ -15,7 +15,7 @@ As chaves podem ser obtidas diretamente na página do Adobe Commerce Marketplace
 **Magento Access Keys:**
 https://commercemarketplace.adobe.com/customer/accessKeys/
 
-Após acessar a página, faça login com sua conta Adobe/Magento.
+Após acessar a página, faça login com a sua conta Adobe/Magento.
 
 Na página de Access Keys, serão disponibilizadas as seguintes credenciais:
 
