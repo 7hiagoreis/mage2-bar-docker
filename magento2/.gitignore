@@ -4,3 +4,6 @@
 /pub/media/catalog/product/cache/
 /var/
 /vendor/
+
+# Chave Privada (SSL private keys)
+docker/magento2/nginx/ssl/*.key
