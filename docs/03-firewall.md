@@ -70,4 +70,4 @@ Todo tráfego de entrada é bloqueado por padrão
 
 - O firewall é iniciado automaticamente no <mark>boot</mark>
 
-- Redução significativa de ataque ao servidor
+- Redução da superfície de exposição do servidor
