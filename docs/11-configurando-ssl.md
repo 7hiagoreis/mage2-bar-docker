@@ -25,9 +25,106 @@ docker/magento2/nginx/ssl/
 └── ...
 ```
 
-O arquivo `.pem` contém o certificado público utilizado pelo Nginx.
+O arquivo `.pem` contém o certificado utilizado pelo Nginx.
 
 O arquivo `.key` contém a chave privada correspondente ao certificado.
+
+---
+
+# Gerando um certificado para ambiente de desenvolvimento
+
+Para ambientes de desenvolvimento e laboratório, é possível gerar um certificado autoassinado utilizando o OpenSSL.
+
+Instale o OpenSSL:
+
+```bash
+sudo apt install -y openssl
+```
+
+Acesse o diretório dos certificados:
+
+```bash
+cd docker/magento2/nginx/ssl/
+```
+
+Gere a chave privada:
+
+```bash
+openssl genrsa -out seusite.com.br.key 2048
+```
+
+O comando criará:
+
+```text
+seusite.com.br.key
+```
+
+Essa é a chave privada utilizada pelo Nginx.
+
+**Nunca envie esse arquivo para o GitHub.**
+
+---
+
+# Gerando o certificado público
+
+Depois de gerar a chave privada, crie um certificado autoassinado:
+
+```bash
+openssl req -new -x509 \
+  -key seusite.com.br.key \
+  -out seusite.com.br.pem \
+  -days 365
+```
+
+Durante o processo, o OpenSSL solicitará algumas informações do certificado.
+
+O campo `Common Name (CN)` deve corresponder ao domínio utilizado no ambiente.
+
+Exemplo:
+
+```text
+Common Name (e.g. server FQDN or YOUR name) []:seusite.com.br
+```
+
+Ao final, serão criados:
+
+```text
+seusite.com.br.key
+seusite.com.br.pem
+```
+
+A relação entre os arquivos é:
+
+```text
+seusite.com.br.key
+        │
+        │ utilizada para gerar
+        ▼
+seusite.com.br.pem
+```
+
+A chave privada e o certificado precisam corresponder entre si.
+
+> **Importante:** certificados autoassinados são adequados para desenvolvimento, laboratório e testes. Para produção, utilize um certificado emitido por uma autoridade certificadora confiável.
+
+---
+
+# Verificando os arquivos
+
+Verifique se os arquivos foram criados:
+
+```bash
+ls -l
+```
+
+A estrutura deverá conter:
+
+```text
+seusite.com.br.pem
+seusite.com.br.key
+```
+
+A chave privada deve permanecer protegida no ambiente local ou no servidor.
 
 ---
 
