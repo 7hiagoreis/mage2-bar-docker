@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/head.xsd">
+    <head>
+        <css src="Treis_BackToTop::css/styles.css"/>
+        <script src="Treis_BackToTop::js/backtotop.js"/>
+    </head>
+</page>
