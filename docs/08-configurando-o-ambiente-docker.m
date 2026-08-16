@@ -6,7 +6,9 @@ Este documento descreve a configuração do ambiente Docker utilizado pelo proje
 
 O ambiente é composto por containers independentes para o Magento 2, banco de dados, cache, mecanismo de pesquisa e servidor web.
 
+
 ---
+
 
 # Estrutura do ambiente
 
@@ -27,6 +29,10 @@ docker/
 
 O ambiente Docker é composto pelos seguintes serviços:
 
+
+---
+
+
 ### MariaDB
 
 O container `magento_db` utiliza a imagem `mariadb:10.6`.
@@ -38,6 +44,10 @@ Os dados são persistidos no host através do volume:
 ```text
 ./data/db:/var/lib/mysql
 ```
+
+
+---
+
 
 ### Redis
 
@@ -52,6 +62,10 @@ A persistência dos dados é realizada através do volume:
 ```
 
 O acesso ao Redis é protegido por senha definida através da variável `REDIS_PASSWORD`.
+
+
+---
+
 
 ### OpenSearch
 
@@ -70,6 +84,10 @@ Os dados dos índices são persistidos no host através do volume:
 ```text
 ./data/opensearch:/usr/share/opensearch/data
 ```
+
+
+---
+
 
 ### Magento 2
 
@@ -94,6 +112,10 @@ magento_db
 magento_redis
 magento_opensearch
 ```
+
+
+---
+
 
 ### Nginx
 
@@ -120,6 +142,10 @@ Os certificados SSL são disponibilizados através de:
 ./nginx/ssl:/etc/nginx/ssl
 ```
 
+
+---
+
+
 # Rede Docker
 
 Os containers utilizam uma rede interna chamada:
@@ -127,6 +153,10 @@ Os containers utilizam uma rede interna chamada:
 ```text
 magento_net
 ```
+
+
+---
+
 
 A rede utiliza o driver `bridge` e permite a comunicação entre os serviços do ambiente Magento.
 
@@ -139,6 +169,10 @@ magento_net
 ├── magento_server
 └── magento_nginx
 ```
+
+
+---
+
 
 # Variáveis de ambiente
 
@@ -163,6 +197,10 @@ cp .env.exemplo .env
 ```
 
 O arquivo `.env` não deve ser enviado para o GitHub quando contiver informações sensíveis.
+
+
+---
+
 
 # Iniciando os containers
 
@@ -190,6 +228,12 @@ Para visualizar os logs de um serviço específico:
 docker compose logs magento_server
 ```
 
+
 ---
 
+
 (em desenvolvimento...)
+
+
+---
+
