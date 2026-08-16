@@ -1,7 +1,7 @@
 # Preparando o Debian 13 para o Projeto
 ## mage2-bar-docker
 
-Este documento descreve o processo de instalação do GNU/Linux Debian 12 aplicado após a preparação inicial do servidor em márquina virtual.
+Este documento descreve o processo de instalação do GNU/Linux Debian 13 aplicado após a preparação inicial do servidor em márquina virtual.
 
 
 ---
