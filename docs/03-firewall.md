@@ -1,7 +1,7 @@
 # Configuração do Firewall
 ## Projeto mage2-bar-docker
 
-Este documento descreve a configuração inicial do firewall utilizando **UFW (Uncomplicated Firewall)** no Debian 12, com foco em segurança básica e controle de acesso ao servidor.
+Este documento descreve a configuração inicial do firewall utilizando **UFW (Uncomplicated Firewall)** no Debian 13, com foco em segurança básica e controle de acesso ao servidor.
 
 O firewall foi configurado após a validação do acesso SSH por chave pública, evitando o risco de perda de acesso remoto.
 
