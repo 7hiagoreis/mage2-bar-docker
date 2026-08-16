@@ -97,7 +97,7 @@ sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin d
 sudo systemctl status docker
 ```
 
-O serviço deverá estar em execução.
+O serviço deve estar ativo.
 
 
 ---
@@ -123,7 +123,7 @@ sudo docker run hello-world
 ---
 
 
-Se a instalação estiver funcionando corretamente, o Docker exibirá a mensagem de confirmação do container `hello-world`.
+O comando executará o container `hello-world` e exibirá uma mensagem confirmando a instalação do Docker. 
 
 
 ---
