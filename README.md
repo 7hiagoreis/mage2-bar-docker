@@ -26,6 +26,25 @@ O ambiente permite trabalhar com containers, infraestrutura como código, automa
 
 ---
 
+
 ### Estrutura do projeto
+
+```text
+mage2-bar-docker/
+├── .github/
+│   └── workflows/
+├── docker/
+│   └── magento2/
+├── docs/
+├── iac/
+│   └── terraform/
+├── magento2/
+├── scripts/
+└── README.md
+```
+
+
+---
+
 
 (em desenvolvimento...)
