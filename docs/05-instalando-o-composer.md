@@ -2,7 +2,7 @@
 
 ## mage2-bar-docker
 
-Este documento descreve o processo de instalação do Composer no Debian 12 para utilização no projeto `mage2-bar-docker`.
+Este documento descreve o processo de instalação do Composer no Debian 13 para utilização no projeto `mage2-bar-docker`.
 
 
 ---
