@@ -1,11 +1,17 @@
 ### mage2-bar-docker
+
 O projeto `mage2-bar-docker` foi desenvolvido na plataforma Magento 2, utilizando Docker. O projeto é voltado para bares, com catálogo simples de bebidas e petiscos, incluindo PDV e fechamento de pedidos localmente.
 
 
 ### Objetivo
-Rodar o **Magento 2** em containers Docker, simulando um sistema de bar com catálogo enxuto (cerveja, batata frita, hambúrguer etc) e PDV local. Exemplo de práticas modernas de containers, IaC e Gitflow.
+
+Executar o **Magento 2** em containers Docker, simulando a operação de um bar e utilizando o projeto também como laboratório para aplicação de conceitos de infraestrutura e DevOps.
+
+O ambiente permite trabalhar com containers, infraestrutura como código, automação e versionamento.
+
 
 ---
+
 
 ### Tecnologias utilizadas no projeto
 - Docker & Docker Compose
