@@ -7,7 +7,7 @@ echo "Iniciando a Instalação Base do Servidor..."
 sleep 2
 
 if [ "$EUID" -ne 0 ]
-  then echo "Não Permitido! ... Execute como root!"
+  then echo "Não permitido! Execute este script como root."
   exit
 fi
 
