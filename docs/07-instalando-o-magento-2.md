@@ -57,7 +57,7 @@ O Composer fará o download do Magento 2 e de suas dependências para o diretór
 Após a instalação, verifique a estrutura criada:
 
 ```bash
-ls -la
+ls -lha
 ```
 
 A instalação deverá conter, entre outros, os diretórios:
