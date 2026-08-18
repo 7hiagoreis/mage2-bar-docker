@@ -1,1 +1,222 @@
+/** 
+ * Copyright © Magento, Inc. All rights reserved. 
+ * See COPYING.txt for license details. 
+ */
 
+@import 'source/_reset.less';
+@import '_styles.less';
+
+// Media queries collector 
+@import 'source/lib/_responsive.less';
+@media-target: 'mobile'; 
+
+// Global variables override 
+@import 'source/_theme.less';
+
+/* ============================================== */
+/* ============== ESTILOS GERAIS =============== */
+/* ============================================== */
+body#html-body {
+    background-color: #ffffff !important; /* Fundo Branco para destacar as fotos das bebidas */
+    color: #1a1a1a !important; /* Texto grafite para leitura limpa */
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Cor de Destaque: Laranja Âmbar no Menu Nativo */
+.navigation .level0 .menu-link.-current,
+.navigation .level0 .menu-link:hover {
+    color: #ff7700 !important; /* Laranja de chopp/cerveja */
+    font-weight: bold;
+}
+
+/* Cabeçalho estilo Bar (Fundo Escuro para dar o clima de Pub) */
+.header.panel,
+.header.content,
+.nav-sections {
+    background-color: #111111 !important; /* Preto estilo balcão de bar */
+    color: #ffffff !important;
+}
+
+/* Links do cabeçalho nativo em branco para contrastar */
+.header.content a, 
+.header.content span,
+.navigation a {
+    color: #ffffff !important;
+}
+
+/* Layout para cabeçalho nativo em telas pequenas (até 700px) */
+@media (max-width: 700px) {
+    .header.content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+        gap: 10px;
+        position: relative;
+    }
+
+    /* Botão do Menu Hambúguer Nativo mais alto e branco */
+    .nav-toggle {
+        position: absolute;
+        left: 10px;
+        top: 10px; 
+        z-index: 2;
+        color: #ffffff !important;
+    }
+
+    /* Carrinho Nativo alinhado à direita */
+    .minicart-wrapper {
+        position: absolute;
+        right: 6px;
+        top: 6px;
+        z-index: 2;
+    }
+
+    /* Centraliza o logo nativo */
+    .logo {
+        margin: 0 auto;
+        order: 2;
+    }
+
+    /* Barra de busca nativa */
+    .block.block-search {
+        width: 100%;
+        order: 3;
+    }
+}
+
+/* Configurações do balão do Carrinho Nativo */
+.minicart-wrapper .block-minicart {
+    margin: 0 -10px;
+    padding: 0;
+    list-style: none none;
+    background: #ffffff;
+    border: 1px solid #333333; 
+    margin-top: 10px;
+    min-width: 100%;
+    width: 320px;
+    z-index: 777;
+    box-sizing: border-box;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    color: #111111 !important;
+}
+
+/* Barra de Pesquisa padrão do tema Blank Magento 2 (Visual Clean com foco Âmbar) */
+.block.block-search input[type="text"],
+.block.block-search input[type="search"] {
+    background-color: #ffffff;
+    border: 1px solid #333333;
+    border-radius: 24px;
+    height: 44px;
+    padding: 0 20px;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.15);
+    outline: none;
+    transition: box-shadow 0.2s ease-in-out;
+    width: 100%;
+    color: #111111 !important;
+}
+
+.block.block-search input[type="text"]:focus,
+.block.block-search input[type="search"]:focus {
+    box-shadow: 0 1px 8px rgba(255, 119, 0, 0.6); /* Brilho neon de chopp ao buscar */
+    border-color: #ff7700;
+}
+
+/* Força a exibição do menu de idiomas padrão em dispositivos móveis */
+@media (max-width: 768px) {
+    #switcher-language {
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 20px auto 40px auto !important; 
+        width: 100%;
+        text-align: center;
+        position: relative;
+        z-index: 9999;
+    }
+
+    #switcher-language .switcher-label {
+        margin-bottom: 8px;
+        color: #ffffff !important;
+    }
+
+    #switcher-language .switcher-trigger {
+        margin: 0 auto;
+        position: relative;
+        z-index: 10000;
+        color: #ffffff !important;
+    }
+
+    #switcher-language .dropdown {
+        position: absolute !important;
+        top: 100%;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        z-index: 9999 !important;
+        background: #1e1e1e; 
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        min-width: 220px;
+        padding: 0.5rem 0;
+    }
+    
+    #switcher-language .dropdown a {
+        color: #ffffff !important;
+    }
+}
+
+/* Menu Lateral Nativo no Celular (Menu Deslizante) - Estilo Pub Dark */
+.nav-sections-item-content {
+    background-color: #111111 !important; /* Menu interno em preto */
+}
+
+/* ============================================== */
+/* ============== FONTES ======================== */
+/* ============================================== */
+@font-face {
+    font-family: 'Blank-Theme-Icons';
+    src: url('../fonts/Blank-Theme-Icons.woff2') format('woff2'),
+         url('../fonts/Blank-Theme-Icons.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* ============================================== */
+/* ================ HEADER/MENU ================ */
+/* ============================================== */
+/* Alinhando o menu nativo do desktop à direita */
+.navigation {
+    display: flex;
+    justify-content: flex-end;
+    background: transparent !important;
+}
+
+.navigation ul {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+/* Seletor de Idiomas estilo Noir */
+.switcher {
+    margin-right: 10px;
+    float: right;
+    order: inherit;
+}
+
+.switcher li {
+    background: #1e1e1e;
+    border: 1px solid #ff7700; 
+    color: #ffffff;
+}
+
+.visually-hidden {
+    position: absolute !important;
+    width: 1px;
+}
