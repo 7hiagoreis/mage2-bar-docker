@@ -1,1 +1,197 @@
+/** 
+ * Copyright © Magento, Inc. All rights reserved. 
+ * See COPYING.txt for license details. 
+ */
 
+// 
+// Blank theme desktop styles 
+// _____________________________________________ 
+
+@import '_styles.less';
+
+// 
+// Media queries collector 
+// --------------------------------------------- 
+@import 'source/lib/_responsive.less';
+@media-target: 'desktop'; 
+@media-common: false; 
+
+// 
+// Global variables override 
+// --------------------------------------------- 
+@import 'source/_theme.less';
+
+/* ============================================== */
+/* ============== ESTILOS GERAIS =============== */
+/* ============================================== */
+body#html-body {
+    background-color: #ffffff !important; /* Visual Clean: fundo branco destaca as bebidas */
+    color: #1a1a1a !important; /* Texto grafite para leitura confortável */
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Foco Âmbar: Link ativo e efeito passar o mouse no menu nativo */
+.navigation .level0 .menu-link.-current,
+.navigation .level0 .menu-link:hover {
+    color: #ff7700 !important; /* Laranja tom de chopp */
+    font-weight: bold;
+}
+
+/* ============================================== */
+/* ============== FONTES ======================== */
+/* ============================================== */
+@font-face {
+    font-family: 'Blank-Theme-Icons';
+    src: url('../fonts/Blank-Theme-Icons.woff2') format('woff2'),
+         url('../fonts/Blank-Theme-Icons.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* ============================================== */
+/* ================ BARRA DE PESQUISA ========== */
+/* ============================================== */
+.block-search {
+    float: left;
+    right: 0px;
+    position: relative;
+    width: 600px; /* Comprimento da barra no desktop */
+    z-index: 93;
+}
+
+.block-search .nested {
+    display: none;
+    padding-top: 5px;
+    position: absolute;
+}
+
+/* ============================================== */
+/* ================ PÁGINA DO PRODUTO ========== */
+/* ============================================== */
+.page-layout-1column .product-info-main {
+    width: 40%;
+}
+
+.product-info-main {
+    float: right;
+}
+
+/* Abas Nativas do Produto (Ficha Técnica/Avaliações) */
+.product.data.items {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin: 0;
+    padding: 0;
+}
+
+.product.data.items > .item.title {
+    margin: 0;
+    display: block;
+}
+
+/* Destaca a aba que está ativa com o foco Âmbar */
+.product.data.items > .item.title.active a {
+    color: #ff7700 !important;
+    border-bottom: 2px solid #ff7700 !important;
+    box-sizing: border-box;
+}
+
+/* Paginação */
+@media (min-width: 769px),
+print {
+    .products.wrapper ~ .toolbar .pages {
+        display: contents;
+    }
+}
+
+/* ============================================== */
+/* ================ HEADER/MENU ================ */
+/* ============================================== */
+/* Mensagem de Boas Vindas */
+li.greet.welcome {
+    visibility: hidden;
+}
+
+/* Alinhamento do menu nativo desktop */
+.nav-sections {
+    background-color: #111111 !important; /* Topo escuro estilo balcão */
+}
+
+.navigation ul {
+    display: flex;
+    justify-content: flex-end; /* Alinha os links do menu à direita */
+}
+
+/* ============================================== */
+/* ================ TÍTULOS ==================== */
+/* ============================================== */
+.page-main > .page-title-wrapper .page-title {
+    display: flex;
+    justify-content: center;
+}
+
+.page-title-wrapper {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+/* ============================================== */
+/* ==================== FOOTER ================= */
+/* ============================================== */
+.footer.content .links {
+    display: inline;
+    margin-bottom: 20px;
+    vertical-align: top;
+}
+
+/* ============================================== */
+/* ============= BOTÃO VOLTAR AO TOPO ========== */
+/* ============================================== */
+#back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #111111; /* Preto combinando com o topo */
+    color: white;
+    border: 1px solid #ff7700; /* Borda fina âmbar sutil */
+    border-radius: 50%;
+    padding: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    display: none;
+    transition: background 0.2s ease;
+}
+
+#back-to-top:hover {
+    background-color: #ff7700; /* Botão fica todo laranja ao passar o mouse */
+    color: #111111;
+}
+
+/* =============================================================== */
+/* ============= BOTÃO PAGINAÇÃO DO BLOG (EM DESENVOLVIMENTO) =========== */
+/* =============================================================== */
+/* Ajustado para usar as classes de paginação nativas do Magento
+.toolbar .pages .action.next,
+.toolbar .pages .action.previous {
+    background: #111111;
+    border: 1px solid #ff7700;
+    border-radius: 50%;
+    display: inline-block;
+    height: 35px;
+    width: 35px;
+    line-height: 35px;
+    text-align: center;
+    color: #ffffff !important;
+}
+
+.toolbar .pages .action.next:hover,
+.toolbar .pages .action.previous:hover {
+    background: #ff7700;
+    color: #111111 !important;
+}
+ */
