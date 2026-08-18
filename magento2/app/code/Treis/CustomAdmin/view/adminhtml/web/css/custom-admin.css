@@ -1,1 +1,17 @@
+/* Mudar o fundo da tela de Login e do Painel Geral */
+body, .page-wrapper {
+    background-color: #111111 !important; /* Estilo escuro */
+}
 
+/* Alterar a cor da barra lateral de menu */
+.nav-bar {
+    background-color: #1e1e1e !important;
+}
+
+/* Trocar o Logo do painel por uma imagem própria */
+.admin__menu .logo {
+    background-image: url('../images/logo-admin.png') !important; /* Puxando localmente */
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    width: 120px !important;
+}
