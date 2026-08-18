@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://w3.org" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Treis_CustomAdmin" setup_version="1.0.0">
+        <sequence>
+            <module name="Magento_Backend"/>
+        </sequence>
+    </module>
+</config>
