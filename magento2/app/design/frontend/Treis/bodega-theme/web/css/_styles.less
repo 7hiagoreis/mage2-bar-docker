@@ -1,1 +1,28 @@
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
 
+@import 'source/lib/_lib.less'; // Global lib
+@import 'source/_sources.less'; // Theme styles
+@import 'source/_components.less'; // Components styles (modal/sliding panel)
+@import 'source/_typography.less'; // Fonts Styles 
+
+
+
+// Exibir a Barra de Pesquisa por padrão
+//.block-search .minisearch input#search{position:static;}
+.block-search .minisearch .label{display:block;}
+
+.block-search .form .minisearch .label{display:none;}
+
+
+
+// Alinhando o footer do tema 
+
+ .footer.content .links {
+            display: inline-block;
+            margin-bottom: 20px;
+            /* padding: 0 50px 0 0; */
+            vertical-align: top;
+}
