@@ -71,12 +71,23 @@ RUN echo "memory_limit=2G" > /usr/local/etc/php/conf.d/zz-memory-limit.ini \
     && echo "max_execution_time=1800" >> /usr/local/etc/php/conf.d/zz-memory-limit.ini
 
 # Configurar o terminal do container com cores e aliases
-RUN echo "export TERM=xterm-256color" >> /root/.bashrc \
-    && echo "alias ll='ls -lah --color=auto'" >> /root/.bashrc \
-    && echo "alias ls='ls --color=auto'" >> /root/.bashrc \
-    && echo "alias mag='php bin/magento'" >> /root/.bashrc \
-    && echo "export CLICOLOR=1" >> /root/.bashrc \
-    && echo "PS1='\\[\\033[01;32m\\]\\u@\\h:\\w \\$\\[\\033[00m\\] '" >> /root/.bashrc
+# 1. Cria o grupo e o usuário 'magento' usando o ID 1001 (igual ao seu usuário devops)
+RUN groupadd -g 1001 magentogroup && \
+    useradd -u 1001 -g magentogroup -m -s /bin/bash magento
+
+# 2. Configura o terminal com cores e aliases na home correta
+RUN echo "export TERM=xterm-256color" >> /home/magento/.bashrc \
+    && echo "alias ll='ls -lah --color=auto'" >> /home/magento/.bashrc \
+    && echo "alias ls='ls --color=auto'" >> /home/magento/.bashrc \
+    && echo "alias mag='php bin/magento'" >> /home/magento/.bashrc \
+    && echo "export CLICOLOR=1" >> /home/magento/.bashrc \
+    && echo "PS1='\\[\\033[01;32m\\]\\u@\\h:\\w \\$\\[\\033[00m\\] '" >> /home/magento/.bashrc
+
+# 3. Permissão na pasta interna
+RUN chown -R magento:magentogroup /var/www/html
+
+# 4. Ativa o usuário
+USER magento
 
 # Instalar o Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
