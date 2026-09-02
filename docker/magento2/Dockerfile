@@ -71,13 +71,13 @@ RUN echo "memory_limit=2G" > /usr/local/etc/php/conf.d/zz-memory-limit.ini \
     && echo "max_execution_time=1800" >> /usr/local/etc/php/conf.d/zz-memory-limit.ini
 
 # Configurar o terminal do container com cores e aliases
-# 1. Cria o grupo e o usuário 'magento' usando o ID 1001 (igual ao seu usuário devops)
+# 1. Cria o grupo e o usuário 'magento' usando o ID 1001 (igual ao seu usuário do sistema)
 RUN groupadd -g 1001 magentogroup && \
     useradd -u 1001 -g magentogroup -m -s /bin/bash magento
 
 # 2. Configura o terminal com cores e aliases na home correta
 RUN echo "export TERM=xterm-256color" >> /home/magento/.bashrc \
-    && echo "alias ll='ls -lah --color=auto'" >> /home/magento/.bashrc \
+    && echo "alias ll='ls -lha --color=auto'" >> /home/magento/.bashrc \
     && echo "alias ls='ls --color=auto'" >> /home/magento/.bashrc \
     && echo "alias mag='php bin/magento'" >> /home/magento/.bashrc \
     && echo "export CLICOLOR=1" >> /home/magento/.bashrc \
