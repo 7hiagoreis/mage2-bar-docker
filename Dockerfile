@@ -23,7 +23,6 @@ RUN apt update && apt install -y \
     libsodium-dev \
     libgmp-dev \
     zip \
-    curl \
     vim \
     nano \
     htop \
