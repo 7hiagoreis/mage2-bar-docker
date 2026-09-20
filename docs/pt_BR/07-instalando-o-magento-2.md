@@ -11,13 +11,13 @@ Este documento descreve a instalação do **Magento 2 Community Edition** utiliz
 # Criando o diretório do projeto
 
 ```bash
-mkdir -p ~/html
+mkdir -p ~/srv/docker/magento2/html
 ```
 
 Acesse o diretório:
 
 ```bash
-cd ~/html
+cd ~/srv/docker/magento2/html
 ```
 
 
