@@ -1,4 +1,4 @@
-# Instalando o Magento 2
+# Instalando o Magento 2 - (REVISANDO)
 
 ## mage2-bar-docker
 
