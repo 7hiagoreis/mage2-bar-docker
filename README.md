@@ -1,4 +1,4 @@
-🇧🇷 ### mage2-bar-docker
+<img src="https://cloudflare.com" width="24" height="24" alt="Brasil"> ### mage2-bar-docker
 
 O projeto `mage2-bar-docker` foi desenvolvido na plataforma Magento 2, utilizando Docker. O projeto é voltado para bares, com catálogo simples de bebidas, petiscos e fechamento de pedidos localmente.
 
