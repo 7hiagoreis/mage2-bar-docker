@@ -24,7 +24,6 @@ RUN apt update && apt install -y \
     libgmp-dev \
     zip \
     vim \
-    nano \
     htop \
     dnsutils \
     procps \
