@@ -1,0 +1,75 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$localeResolver = $objectManager->get(\Magento\Framework\Locale\Resolver::class);
+$locale = $localeResolver->getLocale();
+
+$links = [
+    'Default' => [
+        'privacyPolicy' => 'politica-de-privacidade-e-cookies',
+        'termsOfUse' => 'termos-de-uso',
+        'aboutUs' => 'sobre-nos',
+        'siteMap' => 'sitemap.html'
+    ],
+    'pt_BR' => [
+        'privacyPolicy' => 'politica-de-privacidade-e-cookies',
+        'termsOfUse' => 'termos-de-uso',
+        'aboutUs' => 'sobre-nos',
+        'siteMap' => 'sitemap.html'
+    ],
+    'en_US' => [
+        'privacyPolicy' => 'privacy-policy-and-cookies',
+        'termsOfUse' => 'terms-of-use',
+        'aboutUs' => 'about-us',
+        'siteMap' => 'sitemap.html'
+    ],
+    'es_ES' => [
+        'privacyPolicy' => 'politica-de-privacidad-y-cookies',
+        'termsOfUse' => 'terminos-de-uso',
+        'aboutUs' => 'sobre-nosotros',
+        'siteMap' => 'sitemap.html'
+    ]
+];
+
+$texts = [
+    'Default' => [
+        'privacyPolicy' => 'Política de Privacidade e Cookies',
+        'termsOfUse' => 'Termos de Uso',
+        'aboutUs' => 'Sobre Nós',
+        'siteMap' => 'Mapa do Site'
+    ],
+    'pt_BR' => [
+        'privacyPolicy' => 'Política de Privacidade e Cookies',
+        'termsOfUse' => 'Termos de Uso',
+        'aboutUs' => 'Sobre Nós',
+        'siteMap' => 'Mapa do Site'
+    ],
+    'en_US' => [
+        'privacyPolicy' => 'Privacy Policy and Cookies',
+        'termsOfUse' => 'Terms of Use',
+        'aboutUs' => 'About Us',
+        'siteMap' => 'Site Map'
+    ],
+    'es_ES' => [
+        'privacyPolicy' => 'Política de Privacidad y Cookies',
+        'termsOfUse' => 'Términos de Uso',
+        'aboutUs' => 'Sobre Nosotros',
+        'siteMap' => 'Mapa del Sitio'
+    ]
+];
+
+$currentLinks = isset($links[$locale]) ? $links[$locale] : $links['Default'];
+$currentTexts = isset($texts[$locale]) ? $texts[$locale] : $texts['Default'];
+?>
+
+<br><br><br>
+<ul class="nav" style="list-style: none; padding-left: 0;">
+    <?php foreach (['privacyPolicy', 'termsOfUse', 'siteMap', 'aboutUs'] as $key): ?>
+        <li class="nav-item" style="margin-bottom: 13px;">
+            <a href="<?php echo $block->getUrl($currentLinks[$key]); ?>"
+               style="display: inline-block; min-height: 50px; line-height: 50px; padding: 0 13px; font-size: 15px; text-decoration: none; color: #000;">
+                <?php echo $block->escapeHtml(__($currentTexts[$key])); ?>
+            </a>
+        </li>
+    <?php endforeach; ?>
+</ul>
+<br><br><br>
